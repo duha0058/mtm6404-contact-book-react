@@ -1,32 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
+import { Routes, Route, NavLink, Navigate } from 'react-router-dom'
 import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+import ContactList from './pages/ContactList'
+import ContactDetails from './pages/ContactDetails'
+import AddContact from './pages/AddContact'
+import EditContact from './pages/EditContact'
 
+function App () {
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <div className="app">
+      <header>
+        <h1>Contact Book</h1>
+
+        <nav>
+          <NavLink to="/contacts">Contacts</NavLink>
+          <NavLink to="/contacts/new">Add Contact</NavLink>
+        </nav>
+      </header>
+
+      <main>
+        <Routes>
+          <Route path="/" element={<Navigate to="/contacts" />} />
+          <Route path="/contacts" element={<ContactList />} />
+          <Route path="/contacts/new" element={<AddContact />} />
+          <Route path="/contacts/:id" element={<ContactDetails />} />
+          <Route path="/contacts/:id/edit" element={<EditContact />} />
+        </Routes>
+      </main>
     </div>
   )
 }
